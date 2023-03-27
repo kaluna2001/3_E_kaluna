@@ -1,0 +1,112 @@
+{% extends "./general.html" %}
+
+{% block title %} Registro de Clientes {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2 style="color: red">&nbsp;&nbsp;Registro de Cliente</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url "registrarC2" %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <select id="txtTipoDocumento" name="txtTipoDocumento" style="width:100%" required>
+                        <option value="">Elige el Tipo de Documento...</option>
+                        <option value="Cedula">Cedula</option>
+                        <option value="Pasaporte">Pasaporte</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="numDocumento" name="numDocumento" class="form-control" placeholder="Documento" min="111111111" max="9999999999" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtNombres" name="txtNombres" class="form-control" placeholder="Nombres"
+                            maxlength="25" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtApellidos" name="txtApellidos" class="form-control" placeholder="Apellidos"
+                            maxlength="25" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="txtGenero" name="txtGenero" style="width:100%" required>
+                        <option value="">Elige el Tipo de Genero...</option>
+                        <option value="Hombre">Hombre</option>
+                        <option value="Mujer">Mujer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="fechaNacimiento" style="width:100%"
+                        name="fechaNacimiento" placeholder="Fecha Nacimiento"
+                         min="1900-01-01" max="2023-03-25" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="numTelefono" name="numTelefono" class="form-control" placeholder="Telefono" min="111111111" max="9999999999" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtCorreo" name="txtCorreo" class="form-control" placeholder="Correo Electronico"
+                            maxlength="65" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtDireccion" name="txtDireccion" class="form-control" placeholder="Dirrecion"
+                            maxlength="85" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                    <div class="form-group">
+                        <a href="{% url "generalC1" %}" class="btn btn-danger" style="width:100%">Regresar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-9 col-xl-9">
+        <h1>Listado de Clientes</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tipo Documento</th>
+                        <th>Documento</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Genero</th>
+                        <th>Fecha Nacimiento</th>
+                        <th>Telefono</th>
+                        <th>Correo</th>
+                        <th>Dirrecion</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in clientes %}
+                    <tr>
+                        <td>{{c.id}}</td>
+                        <td>{{c.tipo_documento}}</td>
+                        <td>{{c.documento}}</td>
+                        <td>{{c.nombres}}</td>
+                        <td>{{c.apellidos}}</td>
+                        <td>{{c.genero}}</td>
+                        <td>{{c.fecha_nacimiento}}</td>
+                        <td>{{c.telefono}}</td>
+                        <td>{{c.correo}}</td>
+                        <td>{{c.direccion}}</td>
+                        <td>{{c.estado}}</td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<title></title> 
+	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    {% load static %}
+    <link href='{% static "css/estilos.css" %}' rel="stylesheet"/>
+    <link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet">
+</head>  
+<body>
+ <form method="POST" action="/registrateV/" class="formulario">
+     {% csrf_token %}
+    
+    <h1>Registrate</h1>
+     <div class="contenedor">
+     
+     <div class="input-contenedor">
+         <i class="fas fa-user icon"></i>
+         <input type="text" id= "nombreR" name= "nombreR" placeholder="Nombre Completo" required="required">
+         
+         </div>
+         
+         <div class="input-contenedor">
+         <i class="fas fa-envelope icon"></i>
+         <input type="text" id="correoR" name="correoR" placeholder="Correo Electronico" required="required">
+         
+         </div>
+         
+         <div class="input-contenedor">
+        <i class="fas fa-key icon"></i>
+         <input type="text" id="contrasena1R" name="contrasena1R" placeholder="Contraseña" required="required">
+         
+         </div>
+
+         <div class="input-contenedor">
+        <i class="fas fa-key icon"></i>
+         <input type="text" id="contrasena2R" name="contrasena2R" placeholder="Verifica Contraseña" required="required">
+
+         </div>
+
+         <h3>{{ mensaje }}</h3>
+
+         <input type="submit" value="Registrarme" class="button">
+         <p>Al registrarte, aceptas nuestras Condiciones de uso y Política de privacidad.</p>
+         <p>¿Ya tienes una cuenta?<a class="link" href="{% url "login" %}">Iniciar Sesion</a></p>
+     </div>
+    </form>
+</body>
+</html>

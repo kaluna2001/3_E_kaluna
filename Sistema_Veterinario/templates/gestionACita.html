@@ -1,0 +1,66 @@
+{% extends "./general.html" %}
+
+    {% block title %} Registro de Agenda Citas {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2 style="color: red">&nbsp;&nbsp;&nbsp;Buscar Cita:</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url "generalAC2" %}" method="get">{% csrf_token %}
+                    <div class="form-group">
+                        <input class="nav-link" type="text" id="q" name="q" placeholder="Id, Nombre, etc..." style="width:100%">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Buscar</button>
+                    </div>
+                </form>
+                    <div class="form-group">
+                        <a href="{% url "registrarAC1" %}" class="btn btn-info" style="width:100%">Registrar</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-9 col-xl-9">
+        <h1>Listado de Agendas Citas</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre Usuario</th>
+                        <th>Nombre Mascota</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ac in aCitas %}
+                    <tr>
+                        <td>{{ac.id}}</td>
+                        <td>{{ac.id_usuario.nombre_completo}}</td>
+                        <td>{{ac.id_mascota.nombre}}</td>
+                        <td>{{ac.fecha}}</td>
+                        <td>{{ac.hora}}</td>
+                        <td>{{ac.estado}}</td>
+                        <td><a href="{% url "edicionAC1" ac.id %}" class="btn btn-info">Editar</a></td>
+                        <td><a href="{% url "eliminarAC" ac.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres borrar esta Cita del registro?')">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

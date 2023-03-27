@@ -1,0 +1,83 @@
+{% extends "./general.html" %}
+
+    {% block title %} Registro de Agendar Citas {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2 style="color: red">&nbsp;&nbsp;Registro de Citas</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url "registrarAC2" %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <select id="numIdUsuario" name="numIdUsuario" style="width:100%" required>
+                        <option value="">Selecciona el Usuario...</option>
+                        {% for u in usuario %}
+                        <option value={{u.id}}>{{u.nombre_completo}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="numIdMacota" name="numIdMascota" style="width:100%" required>
+                        <option value="">Selecciona la Mascota...</option>
+                        {% for m in mascota %}
+                        <option value={{m.id}}>{{m.nombre}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="txtFecha" style="width:100%" name="txtFecha" placeholder="Fecha" min="2023-03-26" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="time" id="txtHora" style="width:100%" name="txtHora" placeholder="Hora" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                    <div class="form-group">
+                        <a href="{% url "generalAC1" %}" class="btn btn-danger" style="width:100%">Regresar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-9 col-xl-9">
+        <h1>Listado de Agendar Citas</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre Usuario</th>
+                        <th>Nombre Mascota</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ac in aCitas %}
+                    <tr>
+                        <td>{{ac.id}}</td>
+                        <td>{{ac.id_usuario.nombre_completo}}</td>
+                        <td>{{ac.id_mascota.nombre}}</td>
+                        <td>{{ac.fecha}}</td>
+                        <td>{{ac.hora}}</td>
+                        <td>{{ac.estado}}</td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

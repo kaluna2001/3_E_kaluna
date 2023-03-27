@@ -1,0 +1,66 @@
+{% extends "./general.html" %}
+
+{% block title %} Edición de Clientes {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edición de Cliente</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url "edicionC2" %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="numId" name="numId" value="{{cliente.id}}" class="form-control" placeholder="Id" min="1" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtTipoDocumento" name="txtTipoDocumento" value="{{cliente.tipo_documento}}" class="form-control" placeholder="Nombres"
+                            maxlength="10" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="numDocumento" name="numDocumento" value="{{cliente.documento}}" class="form-control" placeholder="Documento"
+                            maxlength="10" min="10" max="10" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtNombres" name="txtNombres" value="{{cliente.nombres}}" class="form-control" placeholder="Nombres"
+                            maxlength="25" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtApellidos" name="txtApellidos" value="{{cliente.apellidos}}" class="form-control" placeholder="Apellidos"
+                            maxlength="25" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtGenero" name="txtGenero" value="{{cliente.genero}}" class="form-control" placeholder="Genero"
+                            maxlength="10" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="fechaNacimiento" name="fechaNacimiento" value="{{cliente.fecha_nacimiento}}" placeholder="Fecha Nacimiento"
+                         maxlength="10" style="width:100%" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" id="numTelefono" name="numTelefono" value="{{cliente.telefono}}" class="form-control" placeholder="Telefono"
+                            min="111111111" max="9999999999" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtCorreo" name="txtCorreo" value="{{cliente.correo}}" class="form-control" placeholder="Correo Electronico"
+                            maxlength="65" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtDireccion" name="txtDireccion" value="{{cliente.direccion}}" class="form-control" placeholder="Dirrecion"
+                            maxlength="85" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="txtEstado" name="txtEstado" style="width:100%" required>
+                        <option value="">Selecciona el Estado...</option>
+                        <option value="1">True</option>
+                        <option value="0">False</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "./general.html" %}
+
+{% block title %} Edición de Citas {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2>Edición de Cita</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url "edicionAC2" %}" method="POST">{% csrf_token %}
+
+                    <div class="form-group">
+                        <input type="text" id="numId" name="numId" value="{{aCita.id}}" class="form-control" placeholder="Id" min="1" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="numIdUsuario" name="numIdUsuario" value="{{aCita.id_usuario.nombre_completo}}" class="form-control" placeholder="Id Usuario" min="1" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="numIdMascota" name="numIdMascota" value="{{aCita.id_mascota.nombre}}" class="form-control" placeholder="Id Mascota" min="1" readonly required>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="txtFecha" style="width:100%" value="{{aCita.fecha}}" name="txtFecha" placeholder="Fecha" min="2023-03-26" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="time" id="txtHora" style="width:100%" value="{{aCita.hora}}" name="txtHora" placeholder="Hora" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="txtEstado" name="txtEstado" style="width:100%" required>
+                        <option>Selecciona el Estado...</option>
+                        <option value="1">True</option>
+                        <option value="0">False</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

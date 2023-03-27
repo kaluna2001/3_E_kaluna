@@ -1,0 +1,101 @@
+{% extends "./general.html" %}
+
+{% block title %} Registro de Mascotas {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2 style="color: red">&nbsp;&nbsp;Registro de Mascota</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url "registrarM2" %}" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                    </div>
+                    <div class="form-group">
+                        <select id="numIdCliente" name="numIdCliente" style="width:100%" required>
+                        <option value="">Selecciona quien es el Dueño...</option>
+                        {% for c in cliente %}
+                        <option value={{c.id}}>{{c.nombres}}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="txtTipoMascota" name="txtTipoMascota" style="width:100%" required>
+                        <option value="">Selecciona el Tipo de Mascota...</option>
+                        <option value="Perro">Perro</option>
+                        <option value="Gato">Gato</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" placeholder="Nombre"
+                            maxlength="30" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="txtSexo" name="txtSexo" style="width:100%" required>
+                        <option value="">Elige el Tipo de Sexo...</option>
+                        <option value="Macho">Macho</option>
+                        <option value="Hembra">Hembra</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="fechaNacimiento" style="width:100%"
+                        name="fechaNacimiento" placeholder="Fecha Nacimiento"
+                         min="2005-01-01" max="2023-03-25" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtRaza" name="txtRaza" class="form-control" placeholder="Raza"
+                            maxlength="65" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Guardar</button>
+                    </div>
+                    <div class="form-group">
+                        <a href="{% url "generalM1" %}" class="btn btn-danger" style="width:100%">Regresar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-9 col-xl-9">
+        <h1>Listado de Mascotas</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre Dueño</th>
+                        <th>Tipo Mascota</th>
+                        <th>Nombre</th>
+                        <th>Sexo</th>
+                        <th>Fecha Nacimiento</th>
+                        <th>Raza</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in mascotas %}
+                    <tr>
+                        <td>{{m.id}}</td>
+                        <td>{{m.id_cliente.nombres}}</td>
+                        <td>{{m.tipo_mascota}}</td>
+                        <td>{{m.nombre}}</td>
+                        <td>{{m.sexo}}</td>
+                        <td>{{m.fecha_nacimiento}}</td>
+                        <td>{{m.raza}}</td>
+                        <td>{{m.estado}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

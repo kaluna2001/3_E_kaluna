@@ -1,0 +1,76 @@
+{% extends "./general.html" %}
+
+{% block title %} Registro de Clientes {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong class="text-dark">{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2 style="color: red">&nbsp;&nbsp;&nbsp;Buscar Cliente:</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url "generalC2" %}" method="get">{% csrf_token %}
+                    <div class="form-group">
+                        <input class="nav-link" type="text" id="q" name="q" placeholder="Id, Nombre, etc..." style="width:100%">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white">Buscar</button>
+                    </div>
+                </form>
+                    <div class="form-group">
+                        <a href="{% url "registrarC1" %}" class="btn btn-info" style="width:100%">Registrar</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-9 col-xl-9">
+        <h1>Listado de Clientes</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tipo Documento</th>
+                        <th>Documento</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Genero</th>
+                        <th>Fecha Nacimiento</th>
+                        <th>Telefono</th>
+                        <th>Correo</th>
+                        <th>Dirrecion</th>
+                        <th>Estado</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in clientes %}
+                    <tr>
+                        <td>{{c.id}}</td>
+                        <td>{{c.tipo_documento}}</td>
+                        <td>{{c.documento}}</td>
+                        <td>{{c.nombres}}</td>
+                        <td>{{c.apellidos}}</td>
+                        <td>{{c.genero}}</td>
+                        <td>{{c.fecha_nacimiento}}</td>
+                        <td>{{c.telefono}}</td>
+                        <td>{{c.correo}}</td>
+                        <td>{{c.direccion}}</td>
+                        <td>{{c.estado}}</td>
+                        <td><a href="{% url "edicionC1" c.id %}" class="btn btn-info">Editar</a></td>
+                        <td><a href="{% url "eliminarC" c.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres borrar este Cliente del registro?')">Eliminar</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
